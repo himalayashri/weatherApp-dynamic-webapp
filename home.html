@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" rel="stylesheet">
+    <!-- <link href="app.css" rel="stylesheet"> -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            /* font-size: 62.5%; */
+            font-size: 90%;
+        }
+        body{
+            font-size: 62.5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        #city{
+            font-size: 1.3rem;
+            margin: 2rem 2rem;
+            padding: 0.2rem 0.2rem;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 27rem;
+            /* height: 60%; */
+            width: 20%;
+            /* border: 2px solid black; */
+            border-radius: 1rem;
+            background: linear-gradient(to bottom, rgb(0, 183, 255) , rgb(255, 255, 255));
+            box-shadow: 0rem 0rem 5rem 0.1rem rgb(132, 129, 129);
+        }
+        #weathercon{
+            position: relative;
+            top: 15%;
+            /* left: 40%; */
+        }
+        .info{
+            position: relative;
+            top:24%;
+            text-align: center;
+            
+        }
+        .location{
+          font-size: 2rem;
+          margin: 0.3rem 0rem;
+          /* padding: 0rem 1rem; */
+        }
+        .location >i {
+            margin: 0rem 0.4rem;
+        }
+        #date{
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: rgb(68, 65, 65);
+        }
+        .temp{
+            font-size: 3rem;
+            margin-bottom: 0.3rem;
+        }
+        .minMax{
+            font-size: 0.9rem;
+            color: rgb(105, 98, 98);
+        
+        }
+        
+        @media only screen and (max-width: 1000px){
+            *{
+                font-size: 80%;
+        
+            }
+            /* .container{
+                height: 30rem;
+                width: 30%;
+            } */
+        }
+        @media only screen and (max-width: 900px){
+            *{
+                font-size: 70%;
+            }
+        }
+        @media only screen and (max-width: 800px){
+            *{
+                font-size: 50%;
+            }
+        }
+        @media only screen and (max-width: 600px){
+            *{
+                font-size: 40%;
+            }
+        }
+        </style>
+</head>
+
+<body>
+    <!-- <form action="index.js" method="post">
+    <input type="text" id="city" value="" onsubmit="demo()" name="city">
+    <button type="submit">check</button> -->
+</form>
+    <div class="container">
+     <!-- <div class="wave one"></div>
+     <div class="wave two"></div>
+     <div class="wave three"></div> -->
+
+     <div id="weathercon"><i class="fa-solid fa-sun fa-8x" style="color: #FDD835;"></i></div>
+     <div class="info">
+        <h2 class="location"><i class="fa-solid fa-street-view"></i></i>{%location%}, {%country%}</h2>
+        <p id="date">WED | OCT 12 | 10:22 AM</p>
+        <h1 class="temp">{%tempval%}&deg;C</h1>
+        <h3 class="minMax">Min {%tempmin%}&deg;C | Max {%tempmax%}&deg;C</h3>
+     </div>
+    </div>
+    <script>
+        const demo = () => {
+        // const cityy = document.getElementById('city');
+        // console.log(cityy.value)
+        // let city = cityy.value;
+    }
+        const CurDate = document.getElementById('date');
+let weatherCon = document.getElementById('weathercon');
+
+const tempStatus = "{%tempStatus%}";
+
+if(tempStatus == "Sunny"){
+    weatherCon.innerHTML = '<i class="fa-solid fa-sun fa-9x" style="color: #FDD835;"></i>'
+}else if(tempStatus == "clouds"){
+    weatherCon.innerHTML = '<i class="fa-solid fa-cloud fa-9x" style="color: #f5faf6;"></i>'
+}else if(tempStatus == "Rainy"){
+    weatherCon.innerHTML = '<i class="fa-solid fa-cloud-rain fa-9x" style="color: #f5faf6;"></i>'
+}else if(tempStatus == "Smoke"){
+    weatherCon.innerHTML = '<i class="fa-solid fa-smog fa-9x" style="color: #f5faf6;"></i>'
+}
+else{
+    weatherCon.innerHTML = '<i class="fa-solid fa-cloud fa-9x" style="color: #f5faf6;"></i>'
+}
+
+const getCurDay = () => {
+    var weekdays = new Array(7);
+    weekdays[0] = "SUN";
+    weekdays[1] = "MON";
+    weekdays[2] = "TUES";
+    weekdays[3] = "WED";
+    weekdays[4] = "Thurs";
+    weekdays[5] = "FRI";
+    weekdays[6] = "SAT";
+    let curDay = new Date();
+    let day = weekdays[curDay.getDay()];
+    return day;
+}
+
+let getcurtime = () => {
+var months = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
+var CurTime = new Date();
+var date = CurTime.getDate()
+var month = months[CurTime.getMonth()];
+
+var hour  = CurTime.getHours();
+var mints = CurTime.getMinutes();
+
+var period = "AM";
+
+if(hour > 11){
+    period = "PM";
+    if(hour >12) hour -= 12;
+}
+if(mints < 10){
+    mints = "0" + mints
+}
+
+return `${month} ${date} | ${hour}:${mints} ${period}`
+
+}
+
+CurDate.innerHTML = getCurDay() + " | " + getcurtime();
+    </script>
+</body>
+</html>
